@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Semester Result - Dec 2025</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .top-bar {
+      width: 100%;
+      background-color: #c40000;
+      color: #ffffff;
+      overflow: hidden;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      height: 42px;
+      display: flex;
+      align-items: center;
+    }
+
+    .marquee {
+      white-space: nowrap;
+      display: inline-block;
+      padding-left: 100%;
+      animation: scrollText 18s linear infinite;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    @keyframes scrollText {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .container {
+      width: 100%;
+      max-width: 420px;
+      padding: 16px;
+      text-align: center;
+      margin-top: 70px;
+    }
+
+    .logo img {
+      max-width: 280px;
+      width: 100%;
+      height: auto;
+      margin: 0 auto 20px;
+      display: block;
+    }
+
+    .title {
+      font-size: 22px;
+      font-weight: bold;
+      color: #000;
+      margin-bottom: 6px;
+    }
+
+    .date {
+      font-size: 14px;
+      color: #000;
+      margin-bottom: 20px;
+    }
+
+    .box {
+      background-color: #1e90ff;
+      padding: 20px;
+      border-radius: 8px;
+      color: #ffffff;
+      text-align: left;
+    }
+
+    .box label {
+      display: block;
+      margin-top: 14px;
+      font-size: 14px;
+    }
+
+    .box input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .enter-btn {
+      width: 100%;
+      margin-top: 18px;
+      padding: 12px;
+      background-color: #ffffff;
+      color: #1e90ff;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .captcha {
+      margin-top: 12px;
+      font-weight: bold;
+      letter-spacing: 3px;
+      background: #ffffff;
+      color: #000000;
+      padding: 10px;
+      text-align: center;
+      border-radius: 6px;
+      user-select: none;
+    }
+
+    .footer {
+      margin-top: 24px;
+      font-size: 13px;
+      color: #000000;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="top-bar">
+    <div class="marquee">
+      🛑🛑 RESULTS PUBLISHED FOR THE STUDENTS OF THE ANNA UNIVERSITY — BATCH 2025–2026 | SEMESTER 1 | ANNA UNIVERSITY RESULT PORTAL
+    </div>
+  </div>
+
+  <div class="container">
+
+    <div class="logo">
+      <img src="varsity.jpg" alt="Varsity Logo" />
+    </div>
+
+    <div class="title">SEMESTER RESULT - DEC 2025</div>
+    <div class="date" id="resultDate"></div>
+
+    <div class="box">
+      <label>Register Number</label>
+      <input type="text" id="regNo" placeholder="Enter Register Number" />
+
+      <label>Date of Birth (dd-mm-yyyy)</label>
+      <input type="text" id="dob" placeholder="dd-mm-yyyy" />
+
+      <label>Captcha / NCAPTCHA</label>
+      <div class="captcha" id="captchaText"></div>
+      <input type="text" id="captchaInput" placeholder="Enter Captcha" />
+
+      <button class="enter-btn" onclick="goToResult()">ENTER</button>
+    </div>
+
+    <div class="footer">anna university @ 2025-2026</div>
+
+  </div>
+
+  <script>
+    // Live Date
+    const today = new Date();
+    const options = { day: '2-digit', month: 'long', year: 'numeric' };
+    document.getElementById('resultDate').innerText =
+      "Result Date: " + today.toLocaleDateString('en-GB', options);
+
+    // Captcha Generator
+    let currentCaptcha = "";
+
+    function generateCaptcha() {
+      const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+      currentCaptcha = "";
+      for (let i = 0; i < 6; i++) {
+        currentCaptcha += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      document.getElementById("captchaText").innerText = currentCaptcha;
+    }
+
+    generateCaptcha();
+
+    function goToResult() {
+      const regNo = document.getElementById("regNo").value.trim();
+      const dob = document.getElementById("dob").value.trim();
+      const captchaInput = document.getElementById("captchaInput").value.trim();
+
+      // Register Number check
+      if (regNo.length < 12) {
+        alert("Register Number must be at least 12 characters.");
+        return;
+      }
+
+      // DOB format check (dd-mm-yyyy)
+      if (dob.length !== 10 || dob[2] !== "-" || dob[5] !== "-") {
+        alert("Enter Date of Birth in dd-mm-yyyy format.");
+        return;
+      }
+
+      // Captcha check
+      if (captchaInput !== currentCaptcha) {
+        alert("Captcha entered is incorrect.");
+        generateCaptcha();
+        return;
+      }
+
+      // All validations passed
+      window.location.href = "oo.html";
+    }
+  </script>
+
+</body>
+</html>
+
