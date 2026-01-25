@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Semester Result - Dec 2025</title>
+  <title>UMIS conformation- Dec 2025</title>
 
   <style>
     * { box-sizing: border-box; }
@@ -137,7 +137,7 @@
 
   <div class="top-bar">
     <div class="marquee">
-      🛑🛑 RESULTS PUBLISHED FOR THE STUDENTS OF THE ANNA UNIVERSITY — BATCH 2025–2026 | SEMESTER 1 | ANNA UNIVERSITY RESULT PORTAL
+      🛑🛑 CHECK YOUR UMIS CONFORMATION STATUS|ANNA UNIVERSITY|CONTROLLOR OF EXAMINATION🛑🛑
     </div>
   </div>
 
@@ -147,8 +147,8 @@
       <img src="varsity.jpg" alt="Varsity Logo" />
     </div>
 
-    <div class="title">SEMESTER RESULT - DEC 2025</div>
-    <div class="date" id="resultDate"></div>
+    <div class="title">UMIS CONFIRMATION- DEC 2025</div>
+    <div class="date" id="CHECKBY"></div>
 
     <div class="box">
       <label>Register Number</label>
@@ -157,7 +157,7 @@
       <label>Date of Birth (dd-mm-yyyy)</label>
       <input type="text" id="dob" placeholder="dd-mm-yyyy" />
 
-      <label>Captcha / NCAPTCHA</label>
+      <label>Captcha</label>
       <div class="captcha" id="captchaText"></div>
       <input type="text" id="captchaInput" placeholder="Enter Captcha" />
 
@@ -172,14 +172,14 @@
     // Live Date
     const today = new Date();
     const options = { day: '2-digit', month: 'long', year: 'numeric' };
-    document.getElementById('resultDate').innerText =
-      "Result Date: " + today.toLocaleDateString('en-GB', options);
+    document.getElementById('CHECKBY').innerText =
+      "Check by:" + today.toLocaleDateString('en-GB', options);
 
     // Captcha Generator
     let currentCaptcha = "";
 
     function generateCaptcha() {
-      const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz";
       currentCaptcha = "";
       for (let i = 0; i < 6; i++) {
         currentCaptcha += chars.charAt(Math.floor(Math.random() * chars.length));
@@ -220,4 +220,5 @@
 
 </body>
 </html>
+
 
