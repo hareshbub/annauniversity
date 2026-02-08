@@ -1,220 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UMIS Confirmation - Dec 2025</title>
+<meta charset="UTF-8">
+<title>QUAT Compact</title>
 
-  <style>
-    * { box-sizing: border-box; }
+<style>
+:root{
+  --green:#22c55e;
+  --blue:#2563eb;
+  --purple:#7c3aed;
+  --bg:transparent;
+  --border:#64748b;
+  --text:#e5e7eb;
+}
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: Arial, Helvetica, sans-serif;
-      background-color: #ffffff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-    }
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:system-ui,sans-serif;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:100%;
+  margin:0;
+}
 
-    .top-bar {
-      width: 100%;
-      background-color: #c40000;
-      color: #ffffff;
-      position: fixed;
-      top: 0;
-      height: 42px;
-      display: flex;
-      align-items: center;
-      z-index: 1000;
-    }
+#quat{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+}
 
-    .marquee {
-      white-space: nowrap;
-      padding-left: 100%;
-      animation: scrollText 18s linear infinite;
-      font-size: 14px;
-      font-weight: bold;
-    }
+#hero{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
 
-    @keyframes scrollText {
-      from { transform: translateX(0); }
-      to { transform: translateX(-100%); }
-    }
+.circle{
+  width:46px;height:46px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;cursor:pointer;
+  user-select:none;
+}
 
-    .container {
-      width: 100%;
-      max-width: 420px;
-      padding: 16px;
-      margin-top: 70px;
-      text-align: center;
-    }
+.circle.tap{background:var(--blue);}
+.circle.submit{background:var(--purple);}
 
-    .logo img {
-      max-width: 280px;
-      margin-bottom: 20px;
-    }
+.boxes{display:flex;gap:6px;}
+.box{
+  width:38px;height:38px;
+  border:2px solid var(--border);
+  background:var(--green);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;
+  color:#022c22;
+}
 
-    .title {
-      font-size: 22px;
-      font-weight: bold;
-      margin-bottom: 6px;
-    }
-
-    .date {
-      font-size: 14px;
-      margin-bottom: 20px;
-    }
-
-    .box {
-      background-color: #1e90ff;
-      padding: 20px;
-      border-radius: 8px;
-      color: #ffffff;
-      text-align: left;
-    }
-
-    .box label {
-      display: block;
-      margin-top: 14px;
-      font-size: 14px;
-    }
-
-    .box input {
-      width: 100%;
-      padding: 10px;
-      margin-top: 6px;
-      border-radius: 6px;
-      border: none;
-      font-size: 14px;
-    }
-
-    .enter-btn {
-      width: 100%;
-      margin-top: 18px;
-      padding: 12px;
-      background-color: #ffffff;
-      color: #1e90ff;
-      border: none;
-      border-radius: 6px;
-      font-size: 15px;
-      font-weight: bold;
-      cursor: pointer;
-      opacity: .45;
-      pointer-events: none;
-    }
-
-    .enter-btn.enabled {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .quat-frame {
-      margin-top: 14px;
-      border-radius: 8px;
-      overflow: hidden;
-      background: #0f172a;
-    }
-
-    .footer {
-      margin-top: 24px;
-      font-size: 13px;
-      text-align: center;
-    }
-  </style>
+#status{
+  font-size:13px;
+  min-height:18px;
+  text-align:center;
+}
+.success{color:var(--green);}
+.fail{color:#ef4444;}
+</style>
 </head>
 
 <body>
 
-  <div class="top-bar">
-    <div class="marquee">
-      🛑🛑 CHECK YOUR UMIS CONFIRMATION STATUS | ANNA UNIVERSITY | CONTROLLER OF EXAMINATION 🛑🛑
+<div id="quat">
+  <div id="hero">
+    <div class="circle tap" id="tap">●</div>
+
+    <div class="boxes">
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
     </div>
+
+    <div class="circle submit" id="submit">●</div>
   </div>
 
-  <div class="container">
-
-    <div class="logo">
-      <img src="varsity.jpg" alt="Varsity Logo">
-    </div>
-
-    <div class="title">UMIS CONFIRMATION - DEC 2025</div>
-    <div class="date" id="CHECKBY"></div>
-
-    <div class="box">
-      <label>Register Number</label>
-      <input type="text" id="regNo" placeholder="Enter Register Number">
-
-      <label>Date of Birth (dd-mm-yyyy)</label>
-      <input type="text" id="dob" placeholder="dd-mm-yyyy">
-
-      <!-- QUAT -->
-      <label>Human Verification</label>
-      <div class="quat-frame">
-        <iframe
-          src="https://hareshbub.github.io/quat/quatcompact"
-          width="100%"
-          height="160"
-          frameborder="0"
-          sandbox="allow-scripts allow-pointer-lock allow-same-origin">
-        </iframe>
-      </div>
-
-      <button class="enter-btn" id="enterBtn" onclick="goToResult()">
-        ENTER
-      </button>
-    </div>
-
-    <div class="footer">anna university © 2025–2026</div>
-
-  </div>
+  <div id="status"></div>
+</div>
 
 <script>
-  /* ===== DATE ===== */
-  const today = new Date();
-  document.getElementById("CHECKBY").innerText =
-    "Check by: " + today.toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "long",
-      year: "numeric"
-    });
+const LETTERS=["Q","U","A","T"];
+const MIN=80,MAX=350;
+const IS_TOUCH=("ontouchstart"in window)||navigator.maxTouchPoints>0;
+let clicks=[],moves=[],submitted=false,last=null;
 
-  /* ===== QUAT AUTH STATE ===== */
-  let quatPassed = false;
-  const btn = document.getElementById("enterBtn");
+const boxes=document.querySelectorAll(".box");
+const hero=document.getElementById("hero");
+const status=document.getElementById("status");
+const tap=document.getElementById("tap");
+const submit=document.getElementById("submit");
 
-  /* ===== LISTEN FROM QUAT ===== */
-  window.addEventListener("message", e => {
-    if (e.data && e.data.type === "QUAT_PASS") {
-      quatPassed = true;
-      btn.classList.add("enabled");
-    }
+function paint(){
+  boxes.forEach((b,i)=>{
+    b.classList.toggle("active",i<clicks.length);
+    b.textContent=i<clicks.length?LETTERS[i]:"";
   });
+}
 
-  /* ===== SUBMIT ===== */
-  function goToResult() {
-    const regNo = document.getElementById("regNo").value.trim();
-    const dob = document.getElementById("dob").value.trim();
+function resetAll(){
+  clicks=[];moves=[];submitted=false;last=null;
+  boxes.forEach(b=>{b.classList.remove("active");b.textContent="";});
+  status.textContent="";
+}
 
-    if (regNo.length < 12) {
-      alert("Register Number must be at least 12 characters.");
-      return;
-    }
+tap.addEventListener("pointerdown",e=>{
+  if(submitted||!e.isTrusted||clicks.length>=4) return;
+  clicks.push(performance.now());
+  paint();
+});
 
-    if (dob.length !== 10 || dob[2] !== "-" || dob[5] !== "-") {
-      alert("Enter Date of Birth in dd-mm-yyyy format.");
-      return;
-    }
+submit.addEventListener("pointerdown",e=>{
+  if(submitted||!e.isTrusted) return;
+  submitted=true;
 
-    if (!quatPassed) {
-      alert("Please complete human verification.");
-      return;
-    }
-
-    window.location.href = "oo.html";
+  if(clicks.length!==4){
+    status.textContent="Complete QUAT first";
+    status.className="fail";
+    setTimeout(resetAll,700);
+    return;
   }
+
+  const t=[
+    clicks[1]-clicks[0],
+    clicks[2]-clicks[1],
+    clicks[3]-clicks[2]
+  ];
+
+  const timingOK=t.every(v=>v>=MIN&&v<=MAX);
+  const pass=IS_TOUCH ? timingOK : (timingOK && moves.length>0);
+
+  status.className=pass?"success":"fail";
+  status.textContent=pass?"✔ Verified by QUAT":"Verification failed";
+
+  if(pass){
+    window.parent.postMessage({type:"QUAT_PASS"}, "*");
+  } else {
+    setTimeout(resetAll,700);
+  }
+});
 </script>
 
 </body>
