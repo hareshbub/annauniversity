@@ -102,16 +102,17 @@
       font-size: 15px;
       font-weight: bold;
       cursor: pointer;
-      opacity: .5;
+      opacity: .45;
+      pointer-events: none;
     }
 
     .enter-btn.enabled {
       opacity: 1;
-      cursor: pointer;
+      pointer-events: auto;
     }
 
     .quat-frame {
-      margin-top: 16px;
+      margin-top: 14px;
       border-radius: 8px;
       overflow: hidden;
       background: #0f172a;
@@ -134,6 +135,7 @@
   </div>
 
   <div class="container">
+
     <div class="logo">
       <img src="varsity.jpg" alt="Varsity Logo">
     </div>
@@ -154,18 +156,19 @@
         <iframe
           src="https://hareshbub.github.io/quat/quatcompact"
           width="100%"
-          height="140"
+          height="160"
           frameborder="0"
-          sandbox="allow-scripts allow-pointer-lock allow-same-origin"
-        ></iframe>
+          sandbox="allow-scripts allow-pointer-lock allow-same-origin">
+        </iframe>
       </div>
 
-      <button class="enter-btn" id="enterBtn" onclick="goToResult()" disabled>
+      <button class="enter-btn" id="enterBtn" onclick="goToResult()">
         ENTER
       </button>
     </div>
 
     <div class="footer">anna university © 2025–2026</div>
+
   </div>
 
 <script>
@@ -173,17 +176,19 @@
   const today = new Date();
   document.getElementById("CHECKBY").innerText =
     "Check by: " + today.toLocaleDateString("en-GB", {
-      day: "2-digit", month: "long", year: "numeric"
+      day: "2-digit",
+      month: "long",
+      year: "numeric"
     });
 
-  /* ===== QUAT RESULT LISTENER ===== */
+  /* ===== QUAT AUTH STATE ===== */
   let quatPassed = false;
   const btn = document.getElementById("enterBtn");
 
+  /* ===== LISTEN FROM QUAT ===== */
   window.addEventListener("message", e => {
-    if (e.data === "QUAT_PASS") {
+    if (e.data && e.data.type === "QUAT_PASS") {
       quatPassed = true;
-      btn.disabled = false;
       btn.classList.add("enabled");
     }
   });
