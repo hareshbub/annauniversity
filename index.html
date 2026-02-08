@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UMIS conformation- Dec 2025</title>
+  <title>UMIS Confirmation - Dec 2025</title>
 
   <style>
     * { box-sizing: border-box; }
@@ -23,19 +23,16 @@
       width: 100%;
       background-color: #c40000;
       color: #ffffff;
-      overflow: hidden;
       position: fixed;
       top: 0;
-      left: 0;
-      z-index: 1000;
       height: 42px;
       display: flex;
       align-items: center;
+      z-index: 1000;
     }
 
     .marquee {
       white-space: nowrap;
-      display: inline-block;
       padding-left: 100%;
       animation: scrollText 18s linear infinite;
       font-size: 14px;
@@ -43,36 +40,31 @@
     }
 
     @keyframes scrollText {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
+      from { transform: translateX(0); }
+      to { transform: translateX(-100%); }
     }
 
     .container {
       width: 100%;
       max-width: 420px;
       padding: 16px;
-      text-align: center;
       margin-top: 70px;
+      text-align: center;
     }
 
     .logo img {
       max-width: 280px;
-      width: 100%;
-      height: auto;
-      margin: 0 auto 20px;
-      display: block;
+      margin-bottom: 20px;
     }
 
     .title {
       font-size: 22px;
       font-weight: bold;
-      color: #000;
       margin-bottom: 6px;
     }
 
     .date {
       font-size: 14px;
-      color: #000;
       margin-bottom: 20px;
     }
 
@@ -94,8 +86,8 @@
       width: 100%;
       padding: 10px;
       margin-top: 6px;
-      border: none;
       border-radius: 6px;
+      border: none;
       font-size: 14px;
     }
 
@@ -110,24 +102,24 @@
       font-size: 15px;
       font-weight: bold;
       cursor: pointer;
+      opacity: .5;
     }
 
-    .captcha {
-      margin-top: 12px;
-      font-weight: bold;
-      letter-spacing: 3px;
-      background: #ffffff;
-      color: #000000;
-      padding: 10px;
-      text-align: center;
-      border-radius: 6px;
-      user-select: none;
+    .enter-btn.enabled {
+      opacity: 1;
+      cursor: pointer;
+    }
+
+    .quat-frame {
+      margin-top: 16px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #0f172a;
     }
 
     .footer {
       margin-top: 24px;
       font-size: 13px;
-      color: #000000;
       text-align: center;
     }
   </style>
@@ -137,88 +129,88 @@
 
   <div class="top-bar">
     <div class="marquee">
-      🛑🛑 CHECK YOUR UMIS CONFORMATION STATUS|ANNA UNIVERSITY|CONTROLLOR OF EXAMINATION🛑🛑
+      🛑🛑 CHECK YOUR UMIS CONFIRMATION STATUS | ANNA UNIVERSITY | CONTROLLER OF EXAMINATION 🛑🛑
     </div>
   </div>
 
   <div class="container">
-
     <div class="logo">
-      <img src="varsity.jpg" alt="Varsity Logo" />
+      <img src="varsity.jpg" alt="Varsity Logo">
     </div>
 
-    <div class="title">UMIS CONFIRMATION- DEC 2025</div>
+    <div class="title">UMIS CONFIRMATION - DEC 2025</div>
     <div class="date" id="CHECKBY"></div>
 
     <div class="box">
       <label>Register Number</label>
-      <input type="text" id="regNo" placeholder="Enter Register Number" />
+      <input type="text" id="regNo" placeholder="Enter Register Number">
 
       <label>Date of Birth (dd-mm-yyyy)</label>
-      <input type="text" id="dob" placeholder="dd-mm-yyyy" />
+      <input type="text" id="dob" placeholder="dd-mm-yyyy">
 
-      <label>Captcha</label>
-      <div class="captcha" id="captchaText"></div>
-      <input type="text" id="captchaInput" placeholder="Enter Captcha" />
+      <!-- QUAT -->
+      <label>Human Verification</label>
+      <div class="quat-frame">
+        <iframe
+          src="https://hareshbub.github.io/quat/quatcompact"
+          width="100%"
+          height="140"
+          frameborder="0"
+          sandbox="allow-scripts allow-pointer-lock allow-same-origin"
+        ></iframe>
+      </div>
 
-      <button class="enter-btn" onclick="goToResult()">ENTER</button>
+      <button class="enter-btn" id="enterBtn" onclick="goToResult()" disabled>
+        ENTER
+      </button>
     </div>
 
-    <div class="footer">anna university @ 2025-2026</div>
-
+    <div class="footer">anna university © 2025–2026</div>
   </div>
 
-  <script>
-    // Live Date
-    const today = new Date();
-    const options = { day: '2-digit', month: 'long', year: 'numeric' };
-    document.getElementById('CHECKBY').innerText =
-      "Check by:" + today.toLocaleDateString('en-GB', options);
+<script>
+  /* ===== DATE ===== */
+  const today = new Date();
+  document.getElementById("CHECKBY").innerText =
+    "Check by: " + today.toLocaleDateString("en-GB", {
+      day: "2-digit", month: "long", year: "numeric"
+    });
 
-    // Captcha Generator
-    let currentCaptcha = "";
+  /* ===== QUAT RESULT LISTENER ===== */
+  let quatPassed = false;
+  const btn = document.getElementById("enterBtn");
 
-    function generateCaptcha() {
-      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz";
-      currentCaptcha = "";
-      for (let i = 0; i < 6; i++) {
-        currentCaptcha += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
-      document.getElementById("captchaText").innerText = currentCaptcha;
+  window.addEventListener("message", e => {
+    if (e.data === "QUAT_PASS") {
+      quatPassed = true;
+      btn.disabled = false;
+      btn.classList.add("enabled");
+    }
+  });
+
+  /* ===== SUBMIT ===== */
+  function goToResult() {
+    const regNo = document.getElementById("regNo").value.trim();
+    const dob = document.getElementById("dob").value.trim();
+
+    if (regNo.length < 12) {
+      alert("Register Number must be at least 12 characters.");
+      return;
     }
 
-    generateCaptcha();
-
-    function goToResult() {
-      const regNo = document.getElementById("regNo").value.trim();
-      const dob = document.getElementById("dob").value.trim();
-      const captchaInput = document.getElementById("captchaInput").value.trim();
-
-      // Register Number check
-      if (regNo.length < 12) {
-        alert("Register Number must be at least 12 characters.");
-        return;
-      }
-
-      // DOB format check (dd-mm-yyyy)
-      if (dob.length !== 10 || dob[2] !== "-" || dob[5] !== "-") {
-        alert("Enter Date of Birth in dd-mm-yyyy format.");
-        return;
-      }
-
-      // Captcha check
-      if (captchaInput !== currentCaptcha) {
-        alert("Captcha entered is incorrect.");
-        generateCaptcha();
-        return;
-      }
-
-      // All validations passed
-      window.location.href = "oo.html";
+    if (dob.length !== 10 || dob[2] !== "-" || dob[5] !== "-") {
+      alert("Enter Date of Birth in dd-mm-yyyy format.");
+      return;
     }
-  </script>
+
+    if (!quatPassed) {
+      alert("Please complete human verification.");
+      return;
+    }
+
+    window.location.href = "oo.html";
+  }
+</script>
 
 </body>
 </html>
-
-
