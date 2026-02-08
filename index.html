@@ -1,1 +1,268 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>UMIS Confirmation - Dec 2025</title> <style> * { box-sizing: border-box; } body { margin: 0; min-height: 100vh; font-family: Arial, Helvetica, sans-serif; background-color: #ffffff; display: flex; justify-content: center; align-items: center; flex-direction: column; } .top-bar { width: 100%; background-color: #c40000; color: #ffffff; position: fixed; top: 0; height: 42px; display: flex; align-items: center; z-index: 1000; } .marquee { white-space: nowrap; padding-left: 100%; animation: scrollText 18s linear infinite; font-size: 14px; font-weight: bold; } @keyframes scrollText { from { transform: translateX(0); } to { transform: translateX(-100%); } } .container { width: 100%; max-width: 420px; padding: 16px; margin-top: 70px; text-align: center; } .logo img { max-width: 280px; margin-bottom: 20px; } .title { font-size: 22px; font-weight: bold; margin-bottom: 6px; } .date { font-size: 14px; margin-bottom: 20px; } .box { background-color: #1e90ff; padding: 20px; border-radius: 8px; color: #ffffff; text-align: left; } .box label { display: block; margin-top: 14px; font-size: 14px; } .box input { width: 100%; padding: 10px; margin-top: 6px; border-radius: 6px; border: none; font-size: 14px; } .enter-btn { width: 100%; margin-top: 18px; padding: 12px; background-color: #ffffff; color: #1e90ff; border: none; border-radius: 6px; font-size: 15px; font-weight: bold; cursor: pointer; opacity: .45; pointer-events: none; } .enter-btn.enabled { opacity: 1; pointer-events: auto; } .quat-frame { margin-top: 14px; border-radius: 8px; overflow: hidden; background: #0f172a; } .footer { margin-top: 24px; font-size: 13px; text-align: center; } </style> </head> <body> <div class="top-bar"> <div class="marquee"> 🛑🛑 CHECK YOUR UMIS CONFIRMATION STATUS | ANNA UNIVERSITY | CONTROLLER OF EXAMINATION 🛑🛑 </div> </div> <div class="container"> <div class="logo"> <img src="varsity.jpg" alt="Varsity Logo"> </div> <div class="title">UMIS CONFIRMATION - DEC 2025</div> <div class="date" id="CHECKBY"></div> <div class="box"> <label>Register Number</label> <input type="text" id="regNo" placeholder="Enter Register Number"> <label>Date of Birth (dd-mm-yyyy)</label> <input type="text" id="dob" placeholder="dd-mm-yyyy"> <!-- QUAT --> <label>Human Verification</label> <div class="quat-frame"> <iframe src="https://hareshbub.github.io/quat/quatcompact" width="100%" height="160" frameborder="0" sandbox="allow-scripts allow-pointer-lock allow-same-origin"> </iframe> </div> <button class="enter-btn" id="enterBtn" onclick="goToResult()"> ENTER </button> </div> <div class="footer">anna university © 2025–2026</div> </div> <script> /* ===== DATE ===== */ const today = new Date(); document.getElementById("CHECKBY").innerText = "Check by: " + today.toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" }); /* ===== QUAT AUTH STATE ===== */ let quatPassed = false; const btn = document.getElementById("enterBtn"); /* ===== LISTEN FROM QUAT ===== */ window.addEventListener("message", e => { if (e.data && e.data.type === "QUAT_PASS") { quatPassed = true; btn.classList.add("enabled"); } }); /* ===== SUBMIT ===== */ function goToResult() { const regNo = document.getElementById("regNo").value.trim(); const dob = document.getElementById("dob").value.trim(); if (regNo.length < 12) { alert("Register Number must be at least 12 characters."); return; } if (dob.length !== 10 || dob[2] !== "-" || dob[5] !== "-") { alert("Enter Date of Birth in dd-mm-yyyy format."); return; } if (!quatPassed) { alert("Please complete human verification."); return; } window.location.href = "oo.html"; } </script> </body> </html>/
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>UMIS Confirmation - Dec 2025</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.top-bar {
+  width: 100%;
+  background-color: #c40000;
+  color: #ffffff;
+  position: fixed;
+  top: 0;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  z-index: 1000;
+}
+
+.marquee {
+  white-space: nowrap;
+  padding-left: 100%;
+  animation: scrollText 18s linear infinite;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+@keyframes scrollText {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+.container {
+  width: 100%;
+  max-width: 420px;
+  padding: 16px;
+  margin-top: 70px;
+  text-align: center;
+}
+
+.logo img {
+  max-width: 280px;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.date {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.box {
+  background-color: #1e90ff;
+  padding: 20px;
+  border-radius: 8px;
+  color: #ffffff;
+  text-align: left;
+  position: relative;
+}
+
+.box label {
+  display: block;
+  margin-top: 14px;
+  font-size: 14px;
+}
+
+.box input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border-radius: 6px;
+  border: none;
+  font-size: 14px;
+}
+
+.enter-btn {
+  width: 100%;
+  margin-top: 18px;
+  padding: 12px;
+  background-color: #ffffff;
+  color: #1e90ff;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: .45;
+  pointer-events: none;
+}
+
+.enter-btn.enabled {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.quat-frame {
+  margin-top: 14px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #ffffff; /* White background for QUAT */
+  padding: 8px;
+  position: relative;
+}
+
+.info-btn {
+  display: inline-block;
+  background: #2563eb;
+  color: #ffffff;
+  width: 18px;
+  height: 18px;
+  text-align: center;
+  line-height: 18px;
+  font-size: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-left: 6px;
+}
+
+.info-popup {
+  display: none;
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffffff;
+  color: #000;
+  padding: 8px;
+  font-size: 12px;
+  border-radius: 6px;
+  width: 220px;
+  text-align: center;
+  z-index: 100;
+}
+
+.footer {
+  margin-top: 24px;
+  font-size: 13px;
+  text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="top-bar">
+  <div class="marquee">
+    🛑🛑 CHECK YOUR UMIS CONFIRMATION STATUS | ANNA UNIVERSITY | CONTROLLER OF EXAMINATION 🛑🛑
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="logo">
+    <img src="varsity.jpg" alt="Varsity Logo">
+  </div>
+
+  <div class="title">UMIS CONFIRMATION - DEC 2025</div>
+  <div class="date" id="CHECKBY"></div>
+
+  <div class="box">
+    <label>Register Number</label>
+    <input type="text" id="regNo" placeholder="Enter Register Number">
+
+    <label>Date of Birth (dd-mm-yyyy)</label>
+    <input type="text" id="dob" placeholder="dd-mm-yyyy">
+
+    <!-- QUAT -->
+    <label>Human Verification
+      <span class="info-btn" id="infoBtn">i</span>
+    </label>
+    <div class="quat-frame">
+      <iframe
+        src="https://hareshbub.github.io/quat/quatcompact"
+        width="100%"
+        height="100"  <!-- Reduced height -->
+        frameborder="0"
+        sandbox="allow-scripts allow-pointer-lock allow-same-origin">
+      </iframe>
+      <div class="info-popup" id="infoPopup">
+        Click the colored circles in order: Q → U → A → T. Timing and pointer movement are verified. Only then ENTER is enabled.
+      </div>
+    </div>
+
+    <button class="enter-btn" id="enterBtn" onclick="goToResult()">
+      ENTER
+    </button>
+  </div>
+
+  <div class="footer">anna university © 2025–2026</div>
+
+</div>
+
+<script>
+/* ===== DATE ===== */
+const today = new Date();
+document.getElementById("CHECKBY").innerText =
+  "Check by: " + today.toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric"
+  });
+
+/* ===== QUAT AUTH STATE ===== */
+let quatPassed = false;
+const btn = document.getElementById("enterBtn");
+
+/* ===== INFO POPUP ===== */
+const infoBtn = document.getElementById("infoBtn");
+const infoPopup = document.getElementById("infoPopup");
+infoBtn.addEventListener("click", () => {
+  infoPopup.style.display = infoPopup.style.display === "block" ? "none" : "block";
+});
+
+/* ===== LISTEN FROM QUAT ===== */
+window.addEventListener("message", e => {
+  if (e.data && e.data.type === "QUAT_PASS") {
+    quatPassed = true;
+    btn.classList.add("enabled");
+  } else if (e.data && e.data.type === "QUAT_FAIL") {
+    alert("⚠ CAPTCHA verification failed! Please try again.");
+  }
+});
+
+/* ===== SUBMIT ===== */
+function goToResult() {
+  const regNo = document.getElementById("regNo").value.trim();
+  const dob = document.getElementById("dob").value.trim();
+
+  if (regNo.length < 12) {
+    alert("Register Number must be at least 12 characters.");
+    return;
+  }
+
+  if (dob.length !== 10 || dob[2] !== "-" || dob[5] !== "-") {
+    alert("Enter Date of Birth in dd-mm-yyyy format.");
+    return;
+  }
+
+  if (!quatPassed) {
+    alert("Please complete human verification.");
+    return;
+  }
+
+  window.location.href = "oo.html";
+}
+</script>
+
+</body>
+</html>
